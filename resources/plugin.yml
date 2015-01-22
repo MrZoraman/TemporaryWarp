@@ -1,0 +1,8 @@
+name: ${project.artifactId}
+version: ${project.version}
+description: ${project.description}
+author: MrZoraman
+website: http://dev.bukkit.org/bukkit-plugins/temporarywarp/
+main: ${project.groupId}.${project.artifactId}
+commands:
+  twarp:
