@@ -2,7 +2,6 @@ package com.lagopusempire.temporarywarp.warps;
 
 import com.lagopusempire.temporarywarp.warps.io.IWarpSaver;
 import com.lagopusempire.temporarywarp.warps.io.IWarpLoader;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Level;
@@ -13,9 +12,8 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class WarpManager
 {
-    private Map<String, Warp> warps = new HashMap<String, Warp>();
+    private final Map<String, Warp> warps;
     
-    private final IWarpLoader loader;
     private final IWarpSaver saver;
     private final JavaPlugin plugin;
     
@@ -23,7 +21,6 @@ public class WarpManager
     {
         this.plugin = plugin;
         
-        this.loader = loader;
         this.saver = saver;
         
         warps = loader.loadWarps();
