@@ -1,5 +1,6 @@
-package com.lagopusempire.temporarywarp.warps;
+package com.lagopusempire.temporarywarp.warps.io;
 
+import com.lagopusempire.temporarywarp.warps.Warp;
 import java.util.Map;
 
 /**
@@ -9,5 +10,5 @@ import java.util.Map;
  */
 public interface IWarpLoader
 {
-    public Map<String, Warp> loadWarps();
+    public Map<String, Warp> loadWarps() throws Exception;
 }

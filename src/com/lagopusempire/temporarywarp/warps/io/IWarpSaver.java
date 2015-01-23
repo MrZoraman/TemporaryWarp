@@ -1,4 +1,6 @@
-package com.lagopusempire.temporarywarp.warps;
+package com.lagopusempire.temporarywarp.warps.io;
+
+import com.lagopusempire.temporarywarp.warps.Warp;
 
 /**
  * Understands how to save warps
@@ -7,5 +9,5 @@ package com.lagopusempire.temporarywarp.warps;
  */
 public interface IWarpSaver
 {
-    public void saveWarp(Warp warp);
+    public void saveWarp(Warp warp) throws Exception;
 }
