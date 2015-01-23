@@ -7,23 +7,21 @@ import java.util.Map;
  *
  * @author MrZoraman
  */
-public abstract class WarpManagerBase
+public class WarpManagerBase
 {
-    private Map<String, Warp> warps = new HashMap<String, Warp>();
+    protected Map<String, Warp> warps = new HashMap<String, Warp>();
     
-    public WarpManagerBase()
+    public WarpManagerBase() throws Exception
     {
     }
     
-    protected abstract Map<String, Warp> implementedLoadWarps();
-    protected abstract void saveWarp(Warp warp);
-    
-    //todo: create warp
-    
-    public final void loadWarps()
+    /**
+     * @param warp The warp to add to the manager
+     * @return True if the warp name is valid, false if there is already a warp using that name.
+     */
+    public boolean addWarp(Warp warp)
     {
-        Map<String, Warp> warps = implementedLoadWarps();
-        this.warps = warps;
+        return warps.putIfAbsent(warp.getName(), warp) == null;
     }
     
     public Warp getWarp(String name)

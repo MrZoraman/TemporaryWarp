@@ -63,4 +63,9 @@ public class Warp
     {
         this.length = length;
     }
+    
+    public String getName()
+    {
+        return name;
+    }
 }
