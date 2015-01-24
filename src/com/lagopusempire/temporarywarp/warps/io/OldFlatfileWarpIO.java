@@ -6,6 +6,7 @@ import com.lagopusempire.temporarywarp.warps.Warp;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -64,6 +65,26 @@ public class OldFlatfileWarpIO implements IWarpIO
     public void saveWarp(Warp warp) throws Exception
     {
         //NOPE!
+        throw new UnsupportedOperationException("Cannot save warps back to the old format!");
+    }
+
+    @Override
+    public Location getDefaultLocation()
+    {
+        if(!config.contains("defaultLocation"))
+        {
+            Location loc = Bukkit.getServer().getWorlds().get(0).getSpawnLocation();
+            return loc;
+        }
+        else
+        {
+            return LocationUtils.loadLocation(config, "defaultLocation");
+        }
+    }
+
+    @Override
+    public void saveDefaultLocation(Location loc)
+    {
         throw new UnsupportedOperationException("Cannot save warps back to the old format!");
     }
 }

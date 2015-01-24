@@ -6,6 +6,7 @@ import com.lagopusempire.temporarywarp.util.LocationUtils;
 import com.lagopusempire.temporarywarp.warps.Warp;
 import java.util.HashMap;
 import java.util.Map;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -74,6 +75,29 @@ public class NewFlatfileWarpIO implements IWarpIO
             LocationUtils.saveLocation(config, path + ".ReturnLocation", warp.getReturnLoc());
         }
         
+        configAccessor.saveConfig();
+    }
+
+    @Override
+    public Location getDefaultLocation()
+    {
+        final FileConfiguration config = configAccessor.getConfig();
+        if(!config.contains("DefaultReturnLocation"))
+        {
+            Location loc = Bukkit.getServer().getWorlds().get(0).getSpawnLocation();
+            saveDefaultLocation(loc);
+            return loc;
+        }
+        else
+        {
+            return LocationUtils.loadLocation(config, "DefaultReturnLocation");
+        }
+    }
+
+    @Override
+    public void saveDefaultLocation(Location loc)
+    {
+        LocationUtils.saveLocation(configAccessor.getConfig(), "DefaultReturnLocation", loc);
         configAccessor.saveConfig();
     }
 }
