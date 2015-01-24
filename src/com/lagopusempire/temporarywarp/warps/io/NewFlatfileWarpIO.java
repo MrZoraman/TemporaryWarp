@@ -46,7 +46,7 @@ public class NewFlatfileWarpIO implements IWarpLoader, IWarpSaver
         
         if(warp.getReturnType() == ReturnType.WARP_SPECIFIC)
         {
-            config.set(path + ".ReturnLocation", warp.getReturnType());
+            config.set(path + ".ReturnLocation", warp.getReturnLoc());
         }
         
         configAccessor.saveConfig();
