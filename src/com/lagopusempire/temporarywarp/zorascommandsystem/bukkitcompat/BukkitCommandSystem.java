@@ -1,4 +1,4 @@
-package com.mrz.dyndns.server.Hoams.zorascommandsystem.bukkitcompat;
+package com.lagopusempire.temporarywarp.zorascommandsystem.bukkitcompat;
 
 import java.util.Set;
 
@@ -9,8 +9,8 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.mrz.dyndns.server.Hoams.zorascommandsystem.CommandPackage;
-import com.mrz.dyndns.server.Hoams.zorascommandsystem.CommandSystem;
+import com.lagopusempire.temporarywarp.zorascommandsystem.CommandPackage;
+import com.lagopusempire.temporarywarp.zorascommandsystem.CommandSystem;
 
 public class BukkitCommandSystem extends CommandSystem<CSBukkitCommand> implements CommandExecutor
 {
@@ -21,6 +21,7 @@ public class BukkitCommandSystem extends CommandSystem<CSBukkitCommand> implemen
 	
 	private final JavaPlugin plugin;
 	
+        @Override
 	public Set<String> registerCommand(final String cmdString, final CSBukkitCommand cmd)
 	{
 		if(cmdString == null || cmdString.length() <= 0)

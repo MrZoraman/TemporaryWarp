@@ -1,4 +1,4 @@
-package com.mrz.dyndns.server.Hoams.zorascommandsystem.bukkitcompat;
+package com.lagopusempire.temporarywarp.zorascommandsystem.bukkitcompat;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

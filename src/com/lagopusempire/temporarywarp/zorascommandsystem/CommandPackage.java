@@ -1,4 +1,4 @@
-package com.mrz.dyndns.server.Hoams.zorascommandsystem;
+package com.lagopusempire.temporarywarp.zorascommandsystem;
 
 /**
  * This is a class that holds various important things for a command, such as the name of the command executed, the executor itself, and the args.

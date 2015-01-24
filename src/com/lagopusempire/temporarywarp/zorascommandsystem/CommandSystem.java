@@ -1,4 +1,4 @@
-package com.mrz.dyndns.server.Hoams.zorascommandsystem;
+package com.lagopusempire.temporarywarp.zorascommandsystem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
