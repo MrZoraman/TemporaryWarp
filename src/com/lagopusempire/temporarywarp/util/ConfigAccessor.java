@@ -99,4 +99,13 @@ public class ConfigAccessor
         }
     }
 
+    public void clearConfig()
+    {
+        for(String key : getConfig().getKeys(false))
+        {
+            getConfig().set(key, null);
+        }
+        
+        saveConfig();
+    }
 }

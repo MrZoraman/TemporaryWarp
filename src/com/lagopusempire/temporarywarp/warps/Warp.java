@@ -19,6 +19,11 @@ public class Warp
     
     public Warp(Location loc, Location returnLoc, double cost, String name, double length, ReturnType returnType)
     {
+        if(returnLoc == null && returnType == ReturnType.WARP_SPECIFIC)
+        {
+            throw new IllegalArgumentException("You can't make a warp specific return point and pass in a null value for the return location!");
+        }
+        
         this.loc = loc;
         this.returnLoc = returnLoc;
         this.cost = cost;
