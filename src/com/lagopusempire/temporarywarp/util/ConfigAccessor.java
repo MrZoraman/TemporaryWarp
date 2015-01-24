@@ -1,4 +1,4 @@
-package com.lagopusempire.temporarywarp;
+package com.lagopusempire.temporarywarp.util;
 
 /*
  * Copyright (C) 2012

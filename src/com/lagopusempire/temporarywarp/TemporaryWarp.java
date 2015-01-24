@@ -1,5 +1,6 @@
 package com.lagopusempire.temporarywarp;
 
+import com.lagopusempire.temporarywarp.util.ConfigAccessor;
 import com.lagopusempire.temporarywarp.warps.WarpManager;
 import com.lagopusempire.temporarywarp.warps.io.IWarpLoader;
 import com.lagopusempire.temporarywarp.warps.io.OldFlatfileWarpIO;
