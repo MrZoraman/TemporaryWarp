@@ -13,7 +13,7 @@ import org.bukkit.configuration.file.FileConfiguration;
  *
  * @author MrZoraman
  */
-public class NewFlatfileWarpIO implements IWarpLoader, IWarpSaver
+public class NewFlatfileWarpIO implements IWarpIO
 {
     private final ConfigAccessor configAccessor;
     

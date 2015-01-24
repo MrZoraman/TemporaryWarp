@@ -3,8 +3,7 @@ package com.lagopusempire.temporarywarp;
 import com.lagopusempire.temporarywarp.util.ConfigAccessor;
 import com.lagopusempire.temporarywarp.warps.WarpManager;
 import com.lagopusempire.temporarywarp.warps.WarpStorageConverter;
-import com.lagopusempire.temporarywarp.warps.io.IWarpLoader;
-import com.lagopusempire.temporarywarp.warps.io.IWarpSaver;
+import com.lagopusempire.temporarywarp.warps.io.IWarpIO;
 import com.lagopusempire.temporarywarp.warps.io.NewFlatfileWarpIO;
 import com.lagopusempire.temporarywarp.warps.io.OldFlatfileWarpIO;
 import java.util.logging.Level;
@@ -25,8 +24,7 @@ public class TemporaryWarp extends JavaPlugin
 //        IWarpLoader loader = new OldFlatfileWarpIO(config.getConfig());
 //        IWarpSaver saver = new NewFlatfileWarpIO(config);
         
-        NewFlatfileWarpIO io = new NewFlatfileWarpIO(config);
-        
+        IWarpIO io = new NewFlatfileWarpIO(config);
         
         
 //        WarpStorageConverter converter = new WarpStorageConverter(this, loader, saver);

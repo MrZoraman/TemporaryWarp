@@ -4,11 +4,12 @@ import com.lagopusempire.temporarywarp.warps.Warp;
 import java.util.Map;
 
 /**
- * Understands how to load warps.
+ *
  * @author MrZoraman
- * If this were java 8, this would be a functional interface
  */
-public interface IWarpLoader
+public interface IWarpIO
 {
     public Map<String, Warp> loadWarps() throws Exception;
+    
+    public void saveWarp(Warp warp) throws Exception;
 }

@@ -1,7 +1,6 @@
 package com.lagopusempire.temporarywarp.warps;
 
-import com.lagopusempire.temporarywarp.warps.io.IWarpSaver;
-import com.lagopusempire.temporarywarp.warps.io.IWarpLoader;
+import com.lagopusempire.temporarywarp.warps.io.IWarpIO;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Level;
@@ -15,11 +14,11 @@ public class WarpManager
 {
     private Map<String, Warp> warps = null;
     
-    private final IWarpSaver saver;
-    private final IWarpLoader loader;
+    private final IWarpIO saver;
+    private final IWarpIO loader;
     private final JavaPlugin plugin;
     
-    public WarpManager(JavaPlugin plugin, IWarpLoader loader, IWarpSaver saver)
+    public WarpManager(JavaPlugin plugin, IWarpIO loader, IWarpIO saver)
     {
         this.plugin = plugin;
         

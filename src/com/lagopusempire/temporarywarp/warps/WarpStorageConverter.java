@@ -1,8 +1,7 @@
 package com.lagopusempire.temporarywarp.warps;
 
 import com.lagopusempire.temporarywarp.util.ConfigAccessor;
-import com.lagopusempire.temporarywarp.warps.io.IWarpLoader;
-import com.lagopusempire.temporarywarp.warps.io.IWarpSaver;
+import com.lagopusempire.temporarywarp.warps.io.IWarpIO;
 import com.lagopusempire.temporarywarp.warps.io.NewFlatfileWarpIO;
 import java.util.Map;
 import java.util.logging.Level;
@@ -16,13 +15,13 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class WarpStorageConverter
 {
 
-    private final IWarpLoader loader;
-    private final IWarpSaver saver;
+    private final IWarpIO loader;
+    private final IWarpIO saver;
 
     private final JavaPlugin plugin;
     private final Logger logger;
 
-    public WarpStorageConverter(JavaPlugin plugin, IWarpLoader loader, IWarpSaver saver)
+    public WarpStorageConverter(JavaPlugin plugin, IWarpIO loader, IWarpIO saver)
     {
         this.loader = loader;
         this.saver = saver;
