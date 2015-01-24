@@ -41,7 +41,7 @@
                 <directory>resources</directory>
                 <filtering>true</filtering>
                 <includes>
-                    <include>LICENSE.txt</include>
+                    <include>UNLICENSE.txt</include>
                     <include>config.yml</include>
                     <include>plugin.yml</include>
                     <include>messages.yml</include>
