@@ -1,3 +1,5 @@
+package com.lagopusempire.temporarywarp;
+
 /*
  * Copyright (C) 2012
  *

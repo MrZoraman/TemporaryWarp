@@ -12,18 +12,31 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public class WarpManager
 {
-    private final Map<String, Warp> warps;
+    private Map<String, Warp> warps = null;
     
     private final IWarpSaver saver;
+    private final IWarpLoader loader;
     private final JavaPlugin plugin;
     
-    public WarpManager(JavaPlugin plugin, IWarpLoader loader, IWarpSaver saver) throws Exception
+    public WarpManager(JavaPlugin plugin, IWarpLoader loader, IWarpSaver saver)
     {
         this.plugin = plugin;
         
         this.saver = saver;
-        
+        this.loader = loader;
+    }
+    
+    public void load() throws Exception
+    {
         warps = loader.loadWarps();
+    }
+    
+    public void printWarps()
+    {
+        for(Warp warp : warps.values())
+        {
+            System.out.println(warp);
+        }
     }
     
     /**

@@ -1,5 +1,6 @@
 package com.lagopusempire.temporarywarp.warps;
 
+import com.lagopusempire.temporarywarp.ReturnType;
 import org.bukkit.Location;
 
 /**
@@ -14,14 +15,16 @@ public class Warp
     private Location returnLoc;
     private double cost;
     private double length;
+    private ReturnType returnType;
     
-    public Warp(Location loc, Location returnLoc, double cost, String name, double length)
+    public Warp(Location loc, Location returnLoc, double cost, String name, double length, ReturnType returnType)
     {
         this.loc = loc;
         this.returnLoc = returnLoc;
         this.cost = cost;
         this.name = name;
         this.length = length;
+        this.returnType = returnType;
     }
     
     public Location getLoc()
@@ -67,5 +70,46 @@ public class Warp
     public String getName()
     {
         return name;
+    }
+    
+    public ReturnType getReturnType()
+    {
+        return returnType;
+    }
+
+    public void setReturnType(ReturnType returnType)
+    {
+        this.returnType = returnType;
+    }
+    
+    @Override
+    public String toString()
+    {
+        String str = "Warp " + name + ":\n";
+        str += "    Loc:\n";
+        str += "        World: " + loc.getWorld().getName() + "\n";
+        str += "        X: " + loc.getX() + "\n";
+        str += "        Y: " + loc.getY() + "\n";
+        str += "        Z: " + loc.getZ() + "\n";
+        str += "        Yaw: " + loc.getYaw() + "\n";
+        str += "        Pitch: " + loc.getPitch() + "\n";
+        
+        if(returnLoc != null)
+        {
+            str += "    Return Loc:\n";
+            str += "        World: " + returnLoc.getWorld().getName() + "\n";
+            str += "        X: " + returnLoc.getX() + "\n";
+            str += "        Y: " + returnLoc.getY() + "\n";
+            str += "        Z: " + returnLoc.getZ() + "\n";
+            str += "        Yaw: " + returnLoc.getYaw() + "\n";
+            str += "        Pitch: " + returnLoc.getPitch() + "\n";
+        }
+        
+        
+        str += "    Cost: " + cost + "\n";
+        str += "    Length: " + length + "\n";
+        str += "    Return Type: " + returnType.toString();
+        
+        return str;
     }
 }
