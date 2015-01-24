@@ -5,6 +5,7 @@ import com.lagopusempire.temporarywarp.warps.io.IWarpLoader;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -70,5 +71,14 @@ public class WarpManager
     public Warp getWarp(String name)
     {
         return warps.get(name);
+    }
+    
+    public void printWarps(Logger logger)
+    {
+        plugin.getLogger().log(Level.INFO, "Warps:");
+        for(Warp warp : warps.values())
+        {
+            warp.printToLogger(plugin.getLogger(), Level.INFO, "    ");
+        }
     }
 }

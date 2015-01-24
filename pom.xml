@@ -6,7 +6,7 @@
     
     <groupId>com.lagopusempire.temporarywarp</groupId>
     <artifactId>TemporaryWarp</artifactId>
-    <version>0.0.6</version>
+    <version>0.0.7</version>
     <description>Allows players to temporarily warp to predetermined destinations.</description>
     
     <properties>

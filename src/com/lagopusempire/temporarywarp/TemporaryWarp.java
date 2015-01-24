@@ -7,6 +7,7 @@ import com.lagopusempire.temporarywarp.warps.io.IWarpLoader;
 import com.lagopusempire.temporarywarp.warps.io.IWarpSaver;
 import com.lagopusempire.temporarywarp.warps.io.NewFlatfileWarpIO;
 import com.lagopusempire.temporarywarp.warps.io.OldFlatfileWarpIO;
+import java.util.logging.Level;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,15 +22,29 @@ public class TemporaryWarp extends JavaPlugin
     public void onEnable()
     {
         ConfigAccessor config = new ConfigAccessor(this, "locations.yml");
-        IWarpLoader loader = new OldFlatfileWarpIO(config.getConfig());
-        IWarpSaver saver = new NewFlatfileWarpIO(config);
+//        IWarpLoader loader = new OldFlatfileWarpIO(config.getConfig());
+//        IWarpSaver saver = new NewFlatfileWarpIO(config);
         
-        WarpStorageConverter converter = new WarpStorageConverter(this, loader, saver);
+        NewFlatfileWarpIO io = new NewFlatfileWarpIO(config);
         
-        converter.convert(config);
         
-//        WarpManager manager = new WarpManager(this, loader, null);
         
+//        WarpStorageConverter converter = new WarpStorageConverter(this, loader, saver);
+//        
+//        converter.convert(config);
+        
+        WarpManager manager = new WarpManager(this, io, io);
+        
+        try
+        {
+            manager.load();
+        }
+        catch (Exception ex)
+        {
+            getLogger().log(Level.SEVERE, null, ex);
+        }
+        
+        manager.printWarps(getLogger());
         
         
 //        BukkitCommandSystem cs = new BukkitCommandSystem(this);

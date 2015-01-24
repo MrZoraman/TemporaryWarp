@@ -104,11 +104,10 @@ public class Warp
             logger.log(level, prefix + "        Z: " + loc.getZ());
             logger.log(level, prefix + "        Yaw: " + loc.getYaw());
             logger.log(level, prefix + "        Pitch: " + loc.getPitch());
-
-            logger.log(level, prefix + "    Cost:" + cost);
+            logger.log(level, prefix + "    Cost: " + cost);
             logger.log(level, prefix + "    Length: " + length);
-
             logger.log(level, prefix + "    ReturnType: " + returnType.toString());
+            
             if (returnType == ReturnType.WARP_SPECIFIC)
             {
                 logger.log(level, prefix + "    ReturnLocation:");

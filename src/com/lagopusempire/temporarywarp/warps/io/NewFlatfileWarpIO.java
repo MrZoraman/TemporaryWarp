@@ -4,7 +4,9 @@ import com.lagopusempire.temporarywarp.ReturnType;
 import com.lagopusempire.temporarywarp.util.ConfigAccessor;
 import com.lagopusempire.temporarywarp.util.LocationUtils;
 import com.lagopusempire.temporarywarp.warps.Warp;
+import java.util.HashMap;
 import java.util.Map;
+import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
 
 /**
@@ -23,8 +25,31 @@ public class NewFlatfileWarpIO implements IWarpLoader, IWarpSaver
     @Override
     public Map<String, Warp> loadWarps() throws Exception
     {
+        final FileConfiguration config = configAccessor.getConfig();
         
-        return null;
+        Map<String, Warp> warps = new HashMap<String, Warp>();
+        for(String warpName : config.getConfigurationSection("Warps").getKeys(false))
+        {
+            //public Warp(Location loc, Location returnLoc, double cost, String name, double length, ReturnType returnType)
+            
+            String path = "Warps." + warpName;
+            Location loc = LocationUtils.loadLocation(config, path + ".Location");
+            double cost = config.getDouble(path  + ".Cost");
+            double length = config.getDouble(path  + ".Length");
+            ReturnType returnType = ReturnType.valueOf(config.getString(path  + ".ReturnType"));
+            
+            Location returnLoc = null;
+            
+            if(returnType == ReturnType.WARP_SPECIFIC)
+            {
+                returnLoc = LocationUtils.loadLocation(config, path  + ".ReturnLocation");
+            }
+            
+            Warp warp = new Warp(loc, returnLoc, cost, warpName, length, returnType);
+            warps.put(warpName, warp);
+        }
+        
+        return warps;
     }
 
     /**
