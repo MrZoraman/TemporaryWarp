@@ -85,6 +85,7 @@ public class WarpStorageConverter
                 }
                 return false;
             }
+            emergencyDump.saveConfig();
             logger.log(Level.SEVERE, "Successfully salvaged the warp data. It is located in emergencyWarpDump.yml");
             logger.log(Level.SEVERE, "You should be able to rename that file to locations.yml, and use it like normal. Don't forget to set the format to 'FLATFILE' in the config though!");
             return false;

@@ -31,14 +31,6 @@ public class WarpManager
         warps = loader.loadWarps();
     }
     
-    public void printWarps()
-    {
-        for(Warp warp : warps.values())
-        {
-            System.out.println(warp);
-        }
-    }
-    
     /**
      * Saves the warps
      * @return True if all went well, false if something bad happened
