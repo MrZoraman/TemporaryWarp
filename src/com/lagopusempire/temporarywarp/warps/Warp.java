@@ -89,29 +89,29 @@ public class Warp
         this.returnType = returnType;
     }
     
-    public void printToLogger(Logger logger, Level level)
+    public void printToLogger(Logger logger, Level level, String prefix)
     {
-        logger.log(level, name + ":");
-        logger.log(level, "    Location:");
-        logger.log(level, "        World: " + loc.getWorld().getName());
-        logger.log(level, "        X: " + loc.getX());
-        logger.log(level, "        Y: " + loc.getY());
-        logger.log(level, "        Z: " + loc.getZ());
-        logger.log(level, "        Yaw: " + loc.getYaw());
-        logger.log(level, "        Pitch: " + loc.getPitch());
-        logger.log(level, "    Cost:" + cost);
-        logger.log(level, "    Length: " + length);
-        logger.log(level, "    ReturnType: " + returnType.toString());
+        logger.log(level, prefix + name + ":");
+        logger.log(level, prefix + "    Location:");
+        logger.log(level, prefix + "        World: " + loc.getWorld().getName());
+        logger.log(level, prefix + "        X: " + loc.getX());
+        logger.log(level, prefix + "        Y: " + loc.getY());
+        logger.log(level, prefix + "        Z: " + loc.getZ());
+        logger.log(level, prefix + "        Yaw: " + loc.getYaw());
+        logger.log(level, prefix + "        Pitch: " + loc.getPitch());
+        logger.log(level, prefix + "    Cost:" + cost);
+        logger.log(level, prefix + "    Length: " + length);
+        logger.log(level, prefix + "    ReturnType: " + returnType.toString());
         
         if(returnType == ReturnType.WARP_SPECIFIC)
         {
-            logger.log(level, "    ReturnLocation:");
-            logger.log(level, "        World: " + returnLoc.getWorld().getName());
-            logger.log(level, "        X: " + returnLoc.getX());
-            logger.log(level, "        Y: " + returnLoc.getY());
-            logger.log(level, "        Z: " + returnLoc.getZ());
-            logger.log(level, "        Yaw: " + returnLoc.getYaw());
-            logger.log(level, "        Pitch: " + returnLoc.getPitch());
+            logger.log(level, prefix + "    ReturnLocation:");
+            logger.log(level, prefix + "        World: " + returnLoc.getWorld().getName());
+            logger.log(level, prefix + "        X: " + returnLoc.getX());
+            logger.log(level, prefix + "        Y: " + returnLoc.getY());
+            logger.log(level, prefix + "        Z: " + returnLoc.getZ());
+            logger.log(level, prefix + "        Yaw: " + returnLoc.getYaw());
+            logger.log(level, prefix + "        Pitch: " + returnLoc.getPitch());
         }
     }
 }

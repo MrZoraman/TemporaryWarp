@@ -79,9 +79,10 @@ public class WarpStorageConverter
             {
                 logger.log(Level.SEVERE, "Failed to save warps to flatfile!", ex2);
                 logger.log(Level.SEVERE, "Plan B has failed! That's ok. I have a plan C up my sleeve that should be failproof. Printing all warps to console! They should be in the same format as the flatfile format, so you should be able to salvage your warp data from here. Hopefully the above stack traces will help you identify what the problem is.");
+                logger.log(Level.SEVERE, "Warps:");
                 for(Warp warp : warps.values())
                 {
-                    warp.printToLogger(logger, Level.SEVERE);
+                    warp.printToLogger(logger, Level.SEVERE, "    ");
                 }
                 return false;
             }
