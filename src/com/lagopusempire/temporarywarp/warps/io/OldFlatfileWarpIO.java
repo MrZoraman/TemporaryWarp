@@ -64,5 +64,6 @@ public class OldFlatfileWarpIO implements IWarpLoader, IWarpSaver
     public void saveWarp(Warp warp) throws Exception
     {
         //NOPE!
+        throw new UnsupportedOperationException("Cannot save warps back to the old format!");
     }
 }
