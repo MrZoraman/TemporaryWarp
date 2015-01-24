@@ -1,6 +1,8 @@
 package com.lagopusempire.temporarywarp.warps;
 
 import com.lagopusempire.temporarywarp.ReturnType;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.bukkit.Location;
 
 /**
@@ -87,34 +89,29 @@ public class Warp
         this.returnType = returnType;
     }
     
-    @Override
-    public String toString()
+    public void printToLogger(Logger logger, Level level)
     {
-        String str = "Warp " + name + ":\n";
-        str += "    Loc:\n";
-        str += "        World: " + loc.getWorld().getName() + "\n";
-        str += "        X: " + loc.getX() + "\n";
-        str += "        Y: " + loc.getY() + "\n";
-        str += "        Z: " + loc.getZ() + "\n";
-        str += "        Yaw: " + loc.getYaw() + "\n";
-        str += "        Pitch: " + loc.getPitch() + "\n";
+        logger.log(level, name + ":");
+        logger.log(level, "    Location:");
+        logger.log(level, "        World: " + loc.getWorld().getName());
+        logger.log(level, "        X: " + loc.getX());
+        logger.log(level, "        Y: " + loc.getY());
+        logger.log(level, "        Z: " + loc.getZ());
+        logger.log(level, "        Yaw: " + loc.getYaw());
+        logger.log(level, "        Pitch: " + loc.getPitch());
+        logger.log(level, "    Cost:" + cost);
+        logger.log(level, "    Length: " + length);
+        logger.log(level, "    ReturnType: " + returnType.toString());
         
-        if(returnLoc != null)
+        if(returnType == ReturnType.WARP_SPECIFIC)
         {
-            str += "    Return Loc:\n";
-            str += "        World: " + returnLoc.getWorld().getName() + "\n";
-            str += "        X: " + returnLoc.getX() + "\n";
-            str += "        Y: " + returnLoc.getY() + "\n";
-            str += "        Z: " + returnLoc.getZ() + "\n";
-            str += "        Yaw: " + returnLoc.getYaw() + "\n";
-            str += "        Pitch: " + returnLoc.getPitch() + "\n";
+            logger.log(level, "    ReturnLocation:");
+            logger.log(level, "        World: " + returnLoc.getWorld().getName());
+            logger.log(level, "        X: " + returnLoc.getX());
+            logger.log(level, "        Y: " + returnLoc.getY());
+            logger.log(level, "        Z: " + returnLoc.getZ());
+            logger.log(level, "        Yaw: " + returnLoc.getYaw());
+            logger.log(level, "        Pitch: " + returnLoc.getPitch());
         }
-        
-        
-        str += "    Cost: " + cost + "\n";
-        str += "    Length: " + length + "\n";
-        str += "    Return Type: " + returnType.toString();
-        
-        return str;
     }
 }
