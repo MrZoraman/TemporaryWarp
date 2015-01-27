@@ -27,6 +27,7 @@ public class TemporaryWarp extends JavaPlugin
         
         if(newLocationsFile)
         {
+            System.out.println("Setting flatfile version");
             locations.getConfig().set("FlatfileVersion", 1);
             locations.saveConfig();
         }
@@ -88,6 +89,8 @@ public class TemporaryWarp extends JavaPlugin
             if(success)
             {
                 getLogger().info("Conversion successful!");
+                locationsYml.getConfig().set(ConfigConstants.FLATFILE_VERSION, 1);
+                locationsYml.saveConfig();
             }
             else
             {

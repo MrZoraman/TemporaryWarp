@@ -39,7 +39,6 @@ public class WarpStorageConverter
      */
     public boolean convert(ConfigAccessor config)
     {
-        logger.log(Level.INFO, "Converting location data...");
         Map<String, Warp> warps = null;
 
         try
@@ -90,8 +89,7 @@ public class WarpStorageConverter
             logger.log(Level.SEVERE, "You should be able to rename that file to locations.yml, and use it like normal. Don't forget to set the format to 'FLATFILE' in the config though!");
             return false;
         }
-
-        logger.log(Level.INFO, "Converstion completed successfully!");
+        
         return true;
     }
 }
