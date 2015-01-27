@@ -4,7 +4,7 @@ package com.lagopusempire.temporarywarp;
  *
  * @author MrZoraman
  */
-public enum WarpStorageSystem
+public enum StorageType
 {
     FLATFILE,
     PERSISTENCE

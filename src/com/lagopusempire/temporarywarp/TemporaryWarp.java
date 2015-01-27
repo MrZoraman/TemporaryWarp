@@ -2,6 +2,7 @@ package com.lagopusempire.temporarywarp;
 
 import com.lagopusempire.temporarywarp.util.ConfigAccessor;
 import com.lagopusempire.temporarywarp.util.ConfigConstants;
+import com.lagopusempire.temporarywarp.warps.WarpManager;
 import com.lagopusempire.temporarywarp.warps.WarpStorageConverter;
 import com.lagopusempire.temporarywarp.warps.io.OldFlatfileWarpIO;
 import com.lagopusempire.temporarywarp.warps.io.IWarpIO;
@@ -39,6 +40,35 @@ public class TemporaryWarp extends JavaPlugin
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
+        
+        StorageType storageType = null;
+        try
+        {
+            storageType = StorageType.valueOf(getConfig().getString(ConfigConstants.STORAGE_TYPE));
+        }
+        catch (IllegalArgumentException ex)
+        {
+            getLogger().severe("Bad storage type! Perhaps you've made a type? So far the only available storage type is 'FLATFILE'");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+        
+        IWarpIO io = null;
+        switch(storageType)
+        {
+            case FLATFILE:
+                io = new NewFlatfileWarpIO(locations);
+                break;
+            default:
+                getLogger().severe("Unexpected plugin state! Please contact the author about this issue. Disabling...");
+                getServer().getPluginManager().disablePlugin(this);
+                return;
+        }
+        
+        final WarpManager manager = new WarpManager(this, io);
+        
+        //TODO: load
+        
         
 //        IWarpLoader loader = new OldFlatfileWarpIO(config.getConfig());
 //        IWarpSaver saver = new NewFlatfileWarpIO(config);
