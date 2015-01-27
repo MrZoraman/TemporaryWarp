@@ -8,6 +8,7 @@ import com.lagopusempire.temporarywarp.warps.io.OldFlatfileWarpIO;
 import com.lagopusempire.temporarywarp.warps.io.IWarpIO;
 import com.lagopusempire.temporarywarp.warps.io.NewFlatfileWarpIO;
 import java.io.File;
+import java.util.logging.Level;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -67,32 +68,16 @@ public class TemporaryWarp extends JavaPlugin
         
         final WarpManager manager = new WarpManager(this, io);
         
-        //TODO: load
-        
-        
-//        IWarpLoader loader = new OldFlatfileWarpIO(config.getConfig());
-//        IWarpSaver saver = new NewFlatfileWarpIO(config);
-        
-//        IWarpIO io = new NewFlatfileWarpIO(config);
-//        
-//        
-////        WarpStorageConverter converter = new WarpStorageConverter(this, loader, saver);
-////        
-////        converter.convert(config);
-//        
-//        WarpManager manager = new WarpManager(this, io, io);
-//        
-//        try
-//        {
-//            manager.load();
-//        }
-//        catch (Exception ex)
-//        {
-//            getLogger().log(Level.SEVERE, null, ex);
-//        }
-//        
-//        manager.printWarps(getLogger());
-        
+        try
+        {
+            manager.load();
+        }
+        catch (Exception ex)
+        {
+            getLogger().log(Level.SEVERE, "Failed to load warps!", ex);
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
         
 //        BukkitCommandSystem cs = new BukkitCommandSystem(this);
         
@@ -108,9 +93,9 @@ public class TemporaryWarp extends JavaPlugin
     {
         if(!locationsYml.getConfig().contains(ConfigConstants.FLATFILE_VERSION))
         {
+            //old version of config, time to update
             getLogger().info("Detected old version of warp storage system. Converting to new format...");
             
-            //old version of config, time to update
             final IWarpIO loader = new OldFlatfileWarpIO(locationsYml.getConfig());
             final IWarpIO saver = new NewFlatfileWarpIO(locationsYml);
             
