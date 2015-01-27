@@ -79,7 +79,7 @@ public class NewFlatfileWarpIO implements IWarpIO
     }
 
     @Override
-    public Location getDefaultLocation()
+    public Location getDefaultLocation() throws Exception
     {
         final FileConfiguration config = configAccessor.getConfig();
         if(!config.contains("DefaultReturnLocation"))
@@ -95,7 +95,7 @@ public class NewFlatfileWarpIO implements IWarpIO
     }
 
     @Override
-    public void saveDefaultLocation(Location loc)
+    public void saveDefaultLocation(Location loc) throws Exception
     {
         LocationUtils.saveLocation(configAccessor.getConfig(), "DefaultReturnLocation", loc);
         configAccessor.saveConfig();

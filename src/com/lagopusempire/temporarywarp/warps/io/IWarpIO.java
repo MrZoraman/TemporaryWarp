@@ -14,7 +14,7 @@ public interface IWarpIO
     
     public void saveWarp(Warp warp) throws Exception;
     
-    public Location getDefaultLocation();
+    public Location getDefaultLocation() throws Exception;
     
-    public void saveDefaultLocation(Location loc);
+    public void saveDefaultLocation(Location loc) throws Exception;
 }
