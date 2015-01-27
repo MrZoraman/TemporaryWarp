@@ -2,6 +2,7 @@ package com.lagopusempire.temporarywarp.warps.io;
 
 import com.lagopusempire.temporarywarp.ReturnType;
 import com.lagopusempire.temporarywarp.util.ConfigAccessor;
+import com.lagopusempire.temporarywarp.util.ConfigConstants;
 import com.lagopusempire.temporarywarp.util.LocationUtils;
 import com.lagopusempire.temporarywarp.warps.Warp;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ public class NewFlatfileWarpIO implements IWarpIO
     public NewFlatfileWarpIO(ConfigAccessor configAccessor)
     {
         this.configAccessor = configAccessor;
+        configAccessor.getConfig().set(ConfigConstants.FLATFILE_VERSION, 1);
     }
     
     @Override

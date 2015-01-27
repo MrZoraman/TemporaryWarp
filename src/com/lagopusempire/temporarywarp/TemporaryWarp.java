@@ -1,14 +1,12 @@
 package com.lagopusempire.temporarywarp;
 
 import com.lagopusempire.temporarywarp.util.ConfigAccessor;
-import com.lagopusempire.temporarywarp.warps.WarpManager;
+import com.lagopusempire.temporarywarp.util.ConfigConstants;
 import com.lagopusempire.temporarywarp.warps.WarpStorageConverter;
+import com.lagopusempire.temporarywarp.warps.io.OldFlatfileWarpIO;
 import com.lagopusempire.temporarywarp.warps.io.IWarpIO;
 import com.lagopusempire.temporarywarp.warps.io.NewFlatfileWarpIO;
-import com.lagopusempire.temporarywarp.warps.io.OldFlatfileWarpIO;
-import java.util.logging.Level;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
+import java.io.File;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -20,29 +18,49 @@ public class TemporaryWarp extends JavaPlugin
     @Override
     public void onEnable()
     {
-        ConfigAccessor config = new ConfigAccessor(this, "locations.yml");
+        getConfig().options().copyDefaults(true);
+        saveConfig();
+        
+        boolean newLocationsFile = !locationsFileExists();
+        
+        ConfigAccessor locations = new ConfigAccessor(this, "locations.yml");
+        
+        if(newLocationsFile)
+        {
+            locations.getConfig().set("FlatfileVersion", 1);
+            locations.saveConfig();
+        }
+        
+        boolean success = updateWarpStorage(locations);
+        
+        if(success == false)
+        {
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
+        
 //        IWarpLoader loader = new OldFlatfileWarpIO(config.getConfig());
 //        IWarpSaver saver = new NewFlatfileWarpIO(config);
         
-        IWarpIO io = new NewFlatfileWarpIO(config);
-        
-        
-//        WarpStorageConverter converter = new WarpStorageConverter(this, loader, saver);
+//        IWarpIO io = new NewFlatfileWarpIO(config);
 //        
-//        converter.convert(config);
-        
-        WarpManager manager = new WarpManager(this, io, io);
-        
-        try
-        {
-            manager.load();
-        }
-        catch (Exception ex)
-        {
-            getLogger().log(Level.SEVERE, null, ex);
-        }
-        
-        manager.printWarps(getLogger());
+//        
+////        WarpStorageConverter converter = new WarpStorageConverter(this, loader, saver);
+////        
+////        converter.convert(config);
+//        
+//        WarpManager manager = new WarpManager(this, io, io);
+//        
+//        try
+//        {
+//            manager.load();
+//        }
+//        catch (Exception ex)
+//        {
+//            getLogger().log(Level.SEVERE, null, ex);
+//        }
+//        
+//        manager.printWarps(getLogger());
         
         
 //        BukkitCommandSystem cs = new BukkitCommandSystem(this);
@@ -50,10 +68,39 @@ public class TemporaryWarp extends JavaPlugin
         getLogger().info("TemporaryWarp Enabled!");
     }
     
-    @Override
-    public boolean onCommand(CommandSender cs, Command cmd, String alias, String[] args)
+    /**
+     * Converts flatfile from old format to new one if necessary
+     * @param locationsYml the configuration file
+     * @return return true if all goes well, False if something has gone terribly wrong
+     */
+    private boolean updateWarpStorage(ConfigAccessor locationsYml)
     {
+        if(!locationsYml.getConfig().contains(ConfigConstants.FLATFILE_VERSION))
+        {
+            getLogger().info("Detected old version of warp storage system. Converting to new format...");
+            
+            //old version of config, time to update
+            final IWarpIO loader = new OldFlatfileWarpIO(locationsYml.getConfig());
+            final IWarpIO saver = new NewFlatfileWarpIO(locationsYml);
+            
+            final WarpStorageConverter converter = new WarpStorageConverter(this, loader, saver);
+            boolean success = converter.convert(locationsYml);
+            if(success)
+            {
+                getLogger().info("Conversion successful!");
+            }
+            else
+            {
+                getLogger().severe("Conversion failed!");
+                return false;
+            }
+        }
         
         return true;
+    }
+    
+    private boolean locationsFileExists()
+    {
+        return new File(getDataFolder() + File.separator + "locations.yml").exists();
     }
 }

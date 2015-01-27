@@ -7,6 +7,5 @@ package com.lagopusempire.temporarywarp;
 public enum WarpStorageSystem
 {
     FLATFILE,
-    PERSISTENCE,
-    OLD
+    PERSISTENCE
 }
