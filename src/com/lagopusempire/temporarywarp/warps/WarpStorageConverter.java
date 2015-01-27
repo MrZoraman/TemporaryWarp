@@ -6,6 +6,7 @@ import com.lagopusempire.temporarywarp.warps.io.NewFlatfileWarpIO;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -40,16 +41,19 @@ public class WarpStorageConverter
     public boolean convert(ConfigAccessor config)
     {
         Map<String, Warp> warps = null;
+        Location defaultLocation = null;
 
         try
         {
             warps = loader.loadWarps();
+            defaultLocation = loader.getDefaultLocation();
         }
         catch (Exception ex)
         {
             logger.log(Level.SEVERE, "Failed to load and convert warps!", ex);
             return false;
         }
+        
         
         config.clearConfigAndSave();
 
@@ -59,6 +63,8 @@ public class WarpStorageConverter
             {
                 saver.saveWarp(warp);
             }
+            
+            saver.saveDefaultLocation(defaultLocation);
         }
         catch (Exception ex)
         {
