@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -13,22 +14,22 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class WarpManager
 {
     private Map<String, Warp> warps = null;
+    private Location defaultLocation = null;
     
-    private final IWarpIO saver;
-    private final IWarpIO loader;
+    private final IWarpIO io;
     private final JavaPlugin plugin;
     
-    public WarpManager(JavaPlugin plugin, IWarpIO loader, IWarpIO saver)
+    public WarpManager(JavaPlugin plugin, IWarpIO io)
     {
         this.plugin = plugin;
         
-        this.saver = saver;
-        this.loader = loader;
+        this.io = io;
     }
     
     public void load() throws Exception
     {
-        warps = loader.loadWarps();
+        warps = io.loadWarps();
+        defaultLocation = io.getDefaultLocation();
     }
     
     /**
@@ -46,7 +47,7 @@ public class WarpManager
             Warp warp = it.next();
             try
             {
-                saver.saveWarp(warp);
+                io.saveWarp(warp);
             }
             catch (Exception ex)
             {
@@ -79,5 +80,10 @@ public class WarpManager
         {
             warp.printToLogger(plugin.getLogger(), Level.INFO, "    ");
         }
+    }
+    
+    public Location getDefaultLocation()
+    {
+        return defaultLocation;
     }
 }
