@@ -1,5 +1,9 @@
 package com.lagopusempire.temporarywarp;
 
+import com.lagopusempire.temporarywarp.players.PlayerStorageConverter;
+import com.lagopusempire.temporarywarp.players.io.IPlayerIO;
+import com.lagopusempire.temporarywarp.players.io.NewFlatfilePlayerIO;
+import com.lagopusempire.temporarywarp.players.io.OldFlatfilePlayerIO;
 import com.lagopusempire.temporarywarp.util.ConfigAccessor;
 import com.lagopusempire.temporarywarp.util.ConfigConstants;
 import com.lagopusempire.temporarywarp.warps.WarpManager;
@@ -23,17 +27,36 @@ public class TemporaryWarp extends JavaPlugin
         getConfig().options().copyDefaults(true);
         saveConfig();
         
-        boolean newLocationsFile = !locationsFileExists();
+        boolean newLocationsFile = !fileExists("locations.yml");
+        boolean newPlayersFile = !fileExists("players.yml");
         
         ConfigAccessor locations = new ConfigAccessor(this, "locations.yml");
+        ConfigAccessor players = new ConfigAccessor(this, "players.yml");
         
         if(newLocationsFile)
         {
-            System.out.println("Setting flatfile version");
-            locations.getConfig().set("FlatfileVersion", 1);
+            locations.getConfig().set(ConfigConstants.FLATFILE_VERSION, 1);
             locations.saveConfig();
         }
         
+        /*
+         * Player Data
+         */
+        if(newPlayersFile)
+        {
+            getLogger().info("Converting player data from old storage type to the new one...");
+            boolean success = updatePlayerStorage(players);
+            if(!success)
+            {
+                getLogger().severe("Something has gone wrong while converting the player data! Disabling...");
+                getServer().getPluginManager().disablePlugin(this);
+                return;
+            }
+        }
+        
+        /*
+         * Warp data
+         */
         boolean success = updateWarpStorage(locations);
         
         if(success == false)
@@ -79,6 +102,7 @@ public class TemporaryWarp extends JavaPlugin
             return;
         }
         
+        
 //        BukkitCommandSystem cs = new BukkitCommandSystem(this);
         
         getLogger().info("TemporaryWarp Enabled!");
@@ -117,8 +141,36 @@ public class TemporaryWarp extends JavaPlugin
         return true;
     }
     
-    private boolean locationsFileExists()
+    /**
+     * Converts player data
+     * @param playersYml The config file to store the data at
+     * @return True if all goes well, false if something goes wrong
+     */
+    private boolean updatePlayerStorage(ConfigAccessor playersYml)
     {
-        return new File(getDataFolder() + File.separator + "locations.yml").exists();
+        final IPlayerIO loader = new OldFlatfilePlayerIO(playersYml.getConfig());
+        final IPlayerIO saver = new NewFlatfilePlayerIO(playersYml);
+        
+        final PlayerStorageConverter converter = new PlayerStorageConverter(this, loader, saver);
+        
+        boolean success = converter.convert();
+        if(success)
+        {
+            getLogger().info("Conversion successful!");
+            playersYml.getConfig().set(ConfigConstants.FLATFILE_VERSION, 1);
+            playersYml.saveConfig();
+        }
+        else
+        {
+            getLogger().severe("Conversion failed!");
+            return false;
+        }
+        
+        return true;
+    }
+    
+    private boolean fileExists(String fileName)
+    {
+        return new File(getDataFolder() + File.separator + fileName).exists();
     }
 }
