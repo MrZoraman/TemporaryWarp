@@ -34,29 +34,16 @@ public class WarpManager
     
     /**
      * Saves the warps
-     * @return True if all went well, false if something bad happened
      */
-    public boolean saveWarps()
+    public void saveWarps()
     {
-        boolean success = true;
-        
         Iterator<Warp> it = warps.values().iterator();
         
         while(it.hasNext())
         {
             Warp warp = it.next();
-            try
-            {
-                io.saveWarp(warp);
-            }
-            catch (Exception ex)
-            {
-                plugin.getLogger().log(Level.SEVERE, "Failed to save warp " + warp.getName() + "!", ex);
-                success = false;
-            }
+            io.saveWarp(warp);
         }
-        
-        return success;
     }
     
     /**
