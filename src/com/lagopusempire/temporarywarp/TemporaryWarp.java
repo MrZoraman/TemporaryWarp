@@ -1,7 +1,6 @@
 package com.lagopusempire.temporarywarp;
 
 import com.lagopusempire.bukkitlcs.BukkitLCS;
-import com.lagopusempire.temporarywarp.players.PlayerManager;
 import com.lagopusempire.temporarywarp.players.PlayerStorageConverter;
 import com.lagopusempire.temporarywarp.players.io.IPlayerIO;
 import com.lagopusempire.temporarywarp.players.io.NewFlatfilePlayerIO;
@@ -26,7 +25,6 @@ public class TemporaryWarp extends JavaPlugin
     private ConfigAccessor playersConfig;
     
     private WarpManager warpManager;
-    private PlayerManager playerManager;
     
     private final BukkitLCS lcs = new BukkitLCS();
     
@@ -57,22 +55,25 @@ public class TemporaryWarp extends JavaPlugin
     {
         setupConfigs();
         
-        setupPlayerData();
-        warpManager = setupWarpData();
+        IPlayerIO playerIO = setupPlayerData();
+        IWarpIO warpIO = setupWarpData();
         
+        warpManager = new WarpManager(this, warpIO, playerIO);
         warpManager.load();
     }
     
-    private void setupPlayerData() throws TWarpSetupFailException
+    private IPlayerIO setupPlayerData() throws TWarpSetupFailException
     {
         if(!fileExists("players.yml"))
         {
             getLogger().info("Converting player data from old storage type to the new one...");
             updatePlayerStorage(locationsConfig, playersConfig);
         }
+        
+        return new NewFlatfilePlayerIO(playersConfig);
     }
     
-    private WarpManager setupWarpData() throws TWarpSetupFailException
+    private IWarpIO setupWarpData() throws TWarpSetupFailException
     {
         updateWarpStorage(locationsConfig);
         
@@ -96,7 +97,7 @@ public class TemporaryWarp extends JavaPlugin
                 throw new TWarpSetupFailException("Unexpected plugin state! Please contact the author about this issue...");
         }
         
-        return new WarpManager(this, io);
+        return io;
     }
     
     private void setupConfigs()

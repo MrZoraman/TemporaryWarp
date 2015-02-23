@@ -1,5 +1,6 @@
 package com.lagopusempire.temporarywarp.warps;
 
+import com.lagopusempire.temporarywarp.players.io.IPlayerIO;
 import com.lagopusempire.temporarywarp.warps.io.IWarpIO;
 import java.util.Iterator;
 import java.util.Map;
@@ -19,7 +20,7 @@ public class WarpManager
     private final IWarpIO io;
     private final JavaPlugin plugin;
     
-    public WarpManager(JavaPlugin plugin, IWarpIO io)
+    public WarpManager(JavaPlugin plugin, IWarpIO io, IPlayerIO playerIo)
     {
         this.plugin = plugin;
         
