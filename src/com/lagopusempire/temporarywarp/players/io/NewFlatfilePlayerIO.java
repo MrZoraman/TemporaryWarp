@@ -1,6 +1,5 @@
 package com.lagopusempire.temporarywarp.players.io;
 
-import com.lagopusempire.temporarywarp.TWarpSetupFailException;
 import com.lagopusempire.temporarywarp.util.ConfigAccessor;
 import java.util.HashMap;
 import java.util.Map;
