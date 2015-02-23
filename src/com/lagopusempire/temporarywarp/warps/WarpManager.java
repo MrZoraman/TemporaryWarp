@@ -17,20 +17,20 @@ public class WarpManager
     private Map<String, Warp> warps = null;
     private Location defaultLocation = null;
     
-    private final IWarpIO io;
+    private final IWarpIO warpIO;
     private final JavaPlugin plugin;
     
     public WarpManager(JavaPlugin plugin, IWarpIO io, IPlayerIO playerIo)
     {
         this.plugin = plugin;
         
-        this.io = io;
+        this.warpIO = io;
     }
     
     public void load()
     {
-        warps = io.loadWarps();
-        defaultLocation = io.getDefaultLocation();
+        warps = warpIO.loadWarps();
+        defaultLocation = warpIO.getDefaultLocation();
     }
     
     /**
@@ -43,7 +43,7 @@ public class WarpManager
         while(it.hasNext())
         {
             Warp warp = it.next();
-            io.saveWarp(warp);
+            warpIO.saveWarp(warp);
         }
     }
     
