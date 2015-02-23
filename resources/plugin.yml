@@ -4,5 +4,6 @@ description: ${project.description}
 author: MrZoraman
 website: http://dev.bukkit.org/bukkit-plugins/temporarywarp/
 main: ${project.groupId}.${project.artifactId}
+depend: [BukkitLCS]
 commands:
   twarp:
