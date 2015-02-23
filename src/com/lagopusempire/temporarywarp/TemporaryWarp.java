@@ -103,7 +103,6 @@ public class TemporaryWarp extends JavaPlugin
         }
         
         
-//        BukkitCommandSystem cs = new BukkitCommandSystem(this);
         
         getLogger().info("TemporaryWarp Enabled!");
     }
