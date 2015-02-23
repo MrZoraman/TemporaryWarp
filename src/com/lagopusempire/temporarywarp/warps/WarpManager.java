@@ -26,7 +26,7 @@ public class WarpManager
         this.io = io;
     }
     
-    public void load() throws Exception
+    public void load()
     {
         warps = io.loadWarps();
         defaultLocation = io.getDefaultLocation();

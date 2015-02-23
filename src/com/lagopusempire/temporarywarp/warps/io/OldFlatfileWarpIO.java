@@ -1,7 +1,6 @@
 package com.lagopusempire.temporarywarp.warps.io;
 
 import com.lagopusempire.temporarywarp.ReturnType;
-import com.lagopusempire.temporarywarp.util.ConfigConstants;
 import com.lagopusempire.temporarywarp.util.LocationUtils;
 import com.lagopusempire.temporarywarp.warps.Warp;
 import java.util.HashMap;
@@ -25,9 +24,9 @@ public class OldFlatfileWarpIO implements IWarpIO
     }
     
     @Override
-    public Map<String, Warp> loadWarps() throws Exception
+    public Map<String, Warp> loadWarps()
     {
-        Map<String, Warp> warps = new HashMap<String, Warp>();
+        Map<String, Warp> warps = new HashMap<>();
         
         Set<String> warpNames = config.getConfigurationSection("").getKeys(false);
         for(String warpName : warpNames)
@@ -63,14 +62,14 @@ public class OldFlatfileWarpIO implements IWarpIO
     }
 
     @Override
-    public void saveWarp(Warp warp) throws Exception
+    public void saveWarp(Warp warp)
     {
         //NOPE!
         throw new UnsupportedOperationException("Cannot save warps back to the old format!");
     }
 
     @Override
-    public Location getDefaultLocation() throws Exception
+    public Location getDefaultLocation()
     {
         if(!config.contains("defaultLocation"))
         {
@@ -84,7 +83,7 @@ public class OldFlatfileWarpIO implements IWarpIO
     }
 
     @Override
-    public void saveDefaultLocation(Location loc) throws Exception
+    public void saveDefaultLocation(Location loc)
     {
         throw new UnsupportedOperationException("Cannot save warps back to the old format!");
     }

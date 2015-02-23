@@ -10,11 +10,11 @@ import org.bukkit.Location;
  */
 public interface IWarpIO
 {
-    public Map<String, Warp> loadWarps() throws Exception;
+    public Map<String, Warp> loadWarps();
     
-    public void saveWarp(Warp warp) throws Exception;
+    public void saveWarp(Warp warp);
     
-    public Location getDefaultLocation() throws Exception;
+    public Location getDefaultLocation();
     
-    public void saveDefaultLocation(Location loc) throws Exception;
+    public void saveDefaultLocation(Location loc);
 }

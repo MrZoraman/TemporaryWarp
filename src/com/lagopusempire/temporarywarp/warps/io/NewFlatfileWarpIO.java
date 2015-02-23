@@ -24,11 +24,11 @@ public class NewFlatfileWarpIO implements IWarpIO
     }
     
     @Override
-    public Map<String, Warp> loadWarps() throws Exception
+    public Map<String, Warp> loadWarps()
     {
         final FileConfiguration config = configAccessor.getConfig();
         
-        Map<String, Warp> warps = new HashMap<String, Warp>();
+        Map<String, Warp> warps = new HashMap<>();
         for(String warpName : config.getConfigurationSection("Warps").getKeys(false))
         {
             //public Warp(Location loc, Location returnLoc, double cost, String name, double length, ReturnType returnType)
@@ -56,10 +56,9 @@ public class NewFlatfileWarpIO implements IWarpIO
     /**
      * Saves a warp
      * @param warp The warp to save
-     * @throws Exception If something goes wrong during io
      */
     @Override
-    public void saveWarp(Warp warp) throws Exception
+    public void saveWarp(Warp warp)
     {
         final FileConfiguration config = configAccessor.getConfig();
         
@@ -79,7 +78,7 @@ public class NewFlatfileWarpIO implements IWarpIO
     }
 
     @Override
-    public Location getDefaultLocation() throws Exception
+    public Location getDefaultLocation()
     {
         final FileConfiguration config = configAccessor.getConfig();
         if(!config.contains("DefaultReturnLocation"))
@@ -95,7 +94,7 @@ public class NewFlatfileWarpIO implements IWarpIO
     }
 
     @Override
-    public void saveDefaultLocation(Location loc) throws Exception
+    public void saveDefaultLocation(Location loc)
     {
         LocationUtils.saveLocation(configAccessor.getConfig(), "DefaultReturnLocation", loc);
         configAccessor.saveConfig();

@@ -91,15 +91,7 @@ public class TemporaryWarp extends JavaPlugin
         
         final WarpManager manager = new WarpManager(this, io);
         
-        try
-        {
-            manager.load();
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-            throw new TWarpSetupFailException("Failed to load warps!");
-        }
+        manager.load();
     }
     
     private void setupConfigs()
@@ -130,17 +122,10 @@ public class TemporaryWarp extends JavaPlugin
             final IWarpIO saver = new NewFlatfileWarpIO(locationsYml);
             
             final WarpStorageConverter converter = new WarpStorageConverter(this, loader, saver);
-            boolean success = converter.convert(locationsYml);
-            if(success)
-            {
-                getLogger().info("Conversion successful!");
-                locationsYml.getConfig().set(ConfigConstants.FLATFILE_VERSION, 1);
-                locationsYml.saveConfig();
-            }
-            else
-            {
-                throw new TWarpSetupFailException("Failed to convert warps from old format to new format!");
-            }
+            converter.convert(locationsYml);
+            getLogger().info("Conversion successful!");
+            locationsYml.getConfig().set(ConfigConstants.FLATFILE_VERSION, 1);
+            locationsYml.saveConfig();
         }
     }
     
