@@ -144,11 +144,6 @@ public class TemporaryWarp extends JavaPlugin
         }
     }
     
-    /**
-     * Converts player data
-     * @param playersYml The config file to store the data at
-     * @return True if all goes well, false if something goes wrong
-     */
     private void updatePlayerStorage(ConfigAccessor playersYml) throws TWarpSetupFailException
     {
         final IPlayerIO loader = new OldFlatfilePlayerIO(playersYml.getConfig());
