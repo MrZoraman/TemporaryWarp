@@ -151,17 +151,10 @@ public class TemporaryWarp extends JavaPlugin
         
         final PlayerStorageConverter converter = new PlayerStorageConverter(this, loader, saver);
         
-        boolean success = converter.convert();
-        if(success)
-        {
-            getLogger().info("Conversion successful!");
-            playersYml.getConfig().set(ConfigConstants.FLATFILE_VERSION, 1);
-            playersYml.saveConfig();
-        }
-        else
-        {
-            throw new TWarpSetupFailException("Failed to convert the player storage!");
-        }
+        converter.convert();
+        getLogger().info("Conversion successful!");
+        playersYml.getConfig().set(ConfigConstants.FLATFILE_VERSION, 1);
+        playersYml.saveConfig();
     }
     
     private boolean fileExists(String fileName)

@@ -1,5 +1,6 @@
 package com.lagopusempire.temporarywarp.players.io;
 
+import com.lagopusempire.temporarywarp.TWarpSetupFailException;
 import com.lagopusempire.temporarywarp.util.ConfigAccessor;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,10 +22,10 @@ public class NewFlatfilePlayerIO implements IPlayerIO
     }
 
     @Override
-    public Map<UUID, String> loadPendingPlayers() throws Exception
+    public Map<UUID, String> loadPendingPlayers()
     {
         final FileConfiguration config = configAccessor.getConfig();
-        final Map<UUID, String> players = new HashMap<UUID, String>();
+        final Map<UUID, String> players = new HashMap<>();
         
         Set<String> uuidStrings = config.getConfigurationSection("Players").getKeys(false);
         for(String uuidString : uuidStrings)
@@ -38,7 +39,7 @@ public class NewFlatfilePlayerIO implements IPlayerIO
     }
 
     @Override
-    public void savePendingPlayers(Map<UUID, String> players) throws Exception
+    public void savePendingPlayers(Map<UUID, String> players)
     {
         final FileConfiguration config = configAccessor.getConfig();
         

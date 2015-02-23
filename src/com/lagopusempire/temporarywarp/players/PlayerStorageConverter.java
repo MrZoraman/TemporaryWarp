@@ -1,5 +1,6 @@
 package com.lagopusempire.temporarywarp.players;
 
+import com.lagopusempire.temporarywarp.TWarpSetupFailException;
 import com.lagopusempire.temporarywarp.players.io.IPlayerIO;
 import java.util.Map;
 import java.util.UUID;
@@ -25,11 +26,8 @@ public class PlayerStorageConverter
         this.saver = saver;
     }
     
-    /**
-     * converts player data
-     * @return True if all went well, false if something went wrong.
-     */
-    public boolean convert()
+    
+    public void convert() throws TWarpSetupFailException
     {
         System.out.println("converting...");
         System.out.println(loader.getClass());
@@ -46,10 +44,8 @@ public class PlayerStorageConverter
         }
         catch (Exception ex)
         {
-            plugin.getLogger().log(Level.SEVERE, "Failed to convert player data!", ex);
-            return false;
+            ex.printStackTrace();
+            throw new TWarpSetupFailException("Failed to convert player data!");
         }
-        
-        return true;
     }
 }
