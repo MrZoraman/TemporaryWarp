@@ -18,6 +18,7 @@ public class WarpManager
     private Location defaultLocation = null;
     
     private final IWarpIO warpIO;
+    private final IPlayerIO playerIO;
     private final JavaPlugin plugin;
     
     public WarpManager(JavaPlugin plugin, IWarpIO io, IPlayerIO playerIo)
@@ -25,6 +26,7 @@ public class WarpManager
         this.plugin = plugin;
         
         this.warpIO = io;
+        this.playerIO = playerIo;
     }
     
     public void load()
