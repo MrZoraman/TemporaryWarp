@@ -1,5 +1,6 @@
 package com.lagopusempire.temporarywarp;
 
+import com.lagopusempire.bukkitlcs.BukkitLCS;
 import com.lagopusempire.temporarywarp.players.PlayerStorageConverter;
 import com.lagopusempire.temporarywarp.players.io.IPlayerIO;
 import com.lagopusempire.temporarywarp.players.io.NewFlatfilePlayerIO;
@@ -102,7 +103,8 @@ public class TemporaryWarp extends JavaPlugin
             return;
         }
         
-        
+        BukkitLCS lcs = new BukkitLCS();
+        getCommand("twarp").setExecutor(lcs);
         
         getLogger().info("TemporaryWarp Enabled!");
     }
