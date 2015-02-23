@@ -1,6 +1,7 @@
 package com.lagopusempire.temporarywarp;
 
 import com.lagopusempire.bukkitlcs.BukkitLCS;
+import com.lagopusempire.temporarywarp.players.PlayerManager;
 import com.lagopusempire.temporarywarp.players.PlayerStorageConverter;
 import com.lagopusempire.temporarywarp.players.io.IPlayerIO;
 import com.lagopusempire.temporarywarp.players.io.NewFlatfilePlayerIO;
@@ -24,6 +25,9 @@ public class TemporaryWarp extends JavaPlugin
     private ConfigAccessor locationsConfig;
     private ConfigAccessor playersConfig;
     
+    private WarpManager warpManager;
+    private PlayerManager playerManager;
+    
     private final BukkitLCS lcs = new BukkitLCS();
     
     @Override
@@ -44,6 +48,9 @@ public class TemporaryWarp extends JavaPlugin
         getCommand("twarp").setExecutor(lcs);
         
         getLogger().info("TemporaryWarp Enabled!");
+        
+        
+        
     }
     
     public void reload() throws TWarpSetupFailException
@@ -51,7 +58,9 @@ public class TemporaryWarp extends JavaPlugin
         setupConfigs();
         
         setupPlayerData();
-        setupWarpData();
+        warpManager = setupWarpData();
+        
+        warpManager.load();
     }
     
     private void setupPlayerData() throws TWarpSetupFailException
@@ -63,7 +72,7 @@ public class TemporaryWarp extends JavaPlugin
         }
     }
     
-    private void setupWarpData() throws TWarpSetupFailException
+    private WarpManager setupWarpData() throws TWarpSetupFailException
     {
         updateWarpStorage(locationsConfig);
         
@@ -74,9 +83,7 @@ public class TemporaryWarp extends JavaPlugin
         }
         catch (IllegalArgumentException ex)
         {
-            getLogger().severe("Bad storage type! Perhaps you've made a type? So far the only available storage type is 'FLATFILE'");
-            getServer().getPluginManager().disablePlugin(this);
-            return;
+            throw new TWarpSetupFailException("Bad storage type! Perhaps you've made a type? So far the only available storage type is 'FLATFILE'");
         }
         
         IWarpIO io = null;
@@ -89,9 +96,7 @@ public class TemporaryWarp extends JavaPlugin
                 throw new TWarpSetupFailException("Unexpected plugin state! Please contact the author about this issue...");
         }
         
-        final WarpManager manager = new WarpManager(this, io);
-        
-        manager.load();
+        return new WarpManager(this, io);
     }
     
     private void setupConfigs()
