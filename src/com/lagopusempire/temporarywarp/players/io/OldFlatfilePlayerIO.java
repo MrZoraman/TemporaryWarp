@@ -40,6 +40,7 @@ public class OldFlatfilePlayerIO implements IPlayerIO
             
             Set<String> playersPendingReturn = config.getConfigurationSection(warpName + ".pendingPlayers").getKeys(false);
             
+            
             for(String playerName : playersPendingReturn)
             {
                 oldPlayers.put(playerName, warpName);
@@ -61,7 +62,6 @@ public class OldFlatfilePlayerIO implements IPlayerIO
         {
             players.put(entry.getValue(), oldPlayers.get(entry.getKey()));
         }
-        
         return players;
     }
 

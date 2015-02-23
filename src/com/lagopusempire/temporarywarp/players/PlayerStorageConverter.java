@@ -29,16 +29,9 @@ public class PlayerStorageConverter
     
     public void convert() throws TWarpSetupFailException
     {
-        System.out.println("converting...");
-        System.out.println(loader.getClass());
         try
         {
             Map<UUID, String> players = loader.loadPendingPlayers();
-            
-            for(Map.Entry<UUID, String> entry : players.entrySet())
-            {
-                System.out.println(entry.getKey() + " : " + entry.getValue());
-            }
             
             saver.savePendingPlayers(players);
         }

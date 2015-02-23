@@ -59,7 +59,7 @@ public class TemporaryWarp extends JavaPlugin
         if(!fileExists("players.yml"))
         {
             getLogger().info("Converting player data from old storage type to the new one...");
-            updatePlayerStorage(playersConfig);
+            updatePlayerStorage(locationsConfig, playersConfig);
         }
     }
     
@@ -129,9 +129,9 @@ public class TemporaryWarp extends JavaPlugin
         }
     }
     
-    private void updatePlayerStorage(ConfigAccessor playersYml) throws TWarpSetupFailException
+    private void updatePlayerStorage(ConfigAccessor oldYml, ConfigAccessor playersYml) throws TWarpSetupFailException
     {
-        final IPlayerIO loader = new OldFlatfilePlayerIO(playersYml.getConfig());
+        final IPlayerIO loader = new OldFlatfilePlayerIO(oldYml.getConfig());
         final IPlayerIO saver = new NewFlatfilePlayerIO(playersYml);
         
         final PlayerStorageConverter converter = new PlayerStorageConverter(this, loader, saver);
