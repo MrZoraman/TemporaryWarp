@@ -134,7 +134,7 @@ public class TemporaryWarp extends JavaPlugin
         final IPlayerIO loader = new OldFlatfilePlayerIO(oldYml.getConfig());
         final IPlayerIO saver = new NewFlatfilePlayerIO(playersYml);
         
-        final PlayerStorageConverter converter = new PlayerStorageConverter(this, loader, saver);
+        final PlayerStorageConverter converter = new PlayerStorageConverter(loader, saver);
         
         converter.convert();
         getLogger().info("Conversion successful!");

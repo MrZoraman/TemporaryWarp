@@ -4,8 +4,6 @@ import com.lagopusempire.temporarywarp.TWarpSetupFailException;
 import com.lagopusempire.temporarywarp.players.io.IPlayerIO;
 import java.util.Map;
 import java.util.UUID;
-import java.util.logging.Level;
-import org.bukkit.plugin.java.JavaPlugin;
 
 /**
  *
@@ -16,12 +14,8 @@ public class PlayerStorageConverter
     private final IPlayerIO loader;
     private final IPlayerIO saver;
     
-    private final JavaPlugin plugin;
-    
-    public PlayerStorageConverter(JavaPlugin plugin, IPlayerIO loader, IPlayerIO saver)
+    public PlayerStorageConverter(IPlayerIO loader, IPlayerIO saver)
     {
-        this.plugin = plugin;
-        
         this.loader = loader;
         this.saver = saver;
     }
